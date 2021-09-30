@@ -72,7 +72,7 @@ class file_validate(tk.Frame):
         self.file_path = None
 
 
-        self.label['text'] = "Searching for the file EmployeeAddressSubmissionTemplate_v1.0.xlsx " 
+        self.label['text'] = "Searching for the file FILENAME.xlsx " 
 
         find_lookupName= "https://ecenter.custhelp.com/services/rest/connect/v1.3/incidents?q=lookupName='" + reference_no + "'"
         #print(find_lookupName)
@@ -90,7 +90,7 @@ class file_validate(tk.Frame):
         file_attachment =  requests.get(file_path_url,auth=HTTPBasicAuth(username, password))
         file_attachment_links = BeautifulSoup(file_attachment.content, 'html.parser')
         file_number= str(file_attachment_links)
-        self.label['text'] = "Downloading File EmployeeAddressSubmissionTemplate_v1.0.xlsx" 
+        self.label['text'] = "Downloading File FILENAME.xlsx" 
         '''
         file_number_url = file_number[(file_number.find('https:')):(file_number.find('"', (file_number.find('https:'))))]
         file_download_url = file_number_url + "?download"
@@ -108,7 +108,7 @@ class file_validate(tk.Frame):
 
         self.label['text'] = "Opening the file and validating the data " 
         response = requests.get(str_file_download_url,auth=HTTPBasicAuth(username, password))
-        with open('EmployeeAddressSubmissionTemplate_v1.0.xlsx', 'wb') as output:
+        with open('FILENAME.xlsx', 'wb') as output:
             output.write(response.content)
         print("Done!")       
 
@@ -117,9 +117,9 @@ class file_validate(tk.Frame):
             if '.xlsx' in file:
                 self.file_path  = file
                 workbook = openpyxl.load_workbook(self.file_path,read_only=False, keep_vba=True) 
-                std= workbook['Instructions']
+                std= workbook['SHEET1']
                 workbook.remove(std)
-                workbook.save('EmployeeAddressSubmissionTemplate_v1.0.xlsx')
+                workbook.save('FILENAME.xlsx')
                 workbook.close()            
         try:
             excel_filename = r"{}".format(self.file_path)
