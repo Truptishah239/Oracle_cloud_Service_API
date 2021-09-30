@@ -94,7 +94,7 @@ class Record(tk.Frame):
 
         self.label['text'] = "Opening the file and validating the data " 
         response = requests.get(str_file_download_url,auth=HTTPBasicAuth(username, password))
-        with open('TFB_Availability&Order_Report.xlsx', 'wb') as output:
+        with open('Report.xlsx', 'wb') as output:
             output.write(response.content)
 
         print("Done!")       
